@@ -1,7 +1,6 @@
 package com.example.backend.controller;
 
-import com.example.backend.entity.Role;
-import com.example.backend.entity.User;
+import com.example.backend.entity.User; // ✅ Only import User
 import com.example.backend.repository.AssessmentRepository;
 import com.example.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +74,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @Transactional   // ✅ Fixes the "No EntityManager with actual transaction" error
+    @Transactional
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
@@ -86,8 +85,8 @@ public class UserController {
 
         // Delete all assessments linked to this user BEFORE deleting the user
         assessmentRepository.deleteByUserId(id);
-
         userRepository.delete(user.get());
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
