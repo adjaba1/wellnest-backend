@@ -20,6 +20,12 @@ import java.time.Instant;
 @EntityListeners(AuditingEntityListener.class)
 public class User {
 
+    // ✅ Define the Role enum INSIDE the User class
+    public enum Role {
+        USER,
+        ADMIN
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

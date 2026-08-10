@@ -12,6 +12,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmailIgnoreCase(String email);
     boolean existsByEmailIgnoreCase(String email);
 
-    // ✅ ADD THIS METHOD
+    // ✅ Count users created after a certain date (for "New This Week")
     long countByCreatedAtAfter(Instant date);
+
+    // ✅ Count users by role (for stats)
+    long countByRole(User.Role role);
 }
